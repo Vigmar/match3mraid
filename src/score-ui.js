@@ -23,7 +23,7 @@ export function createScoreText() {
 }
 
 export function setScore() {
-  console.log(gameState.score);
+  
   gameState.scoreText.text = gameState.score;
   gsap.fromTo(
         gameState.scoreText.scale,
