@@ -8,21 +8,20 @@ export function createInstallPopup() {
   // Создаем контейнер для попапа
   const popupContainer = new Container();
   popupContainer.width = config.width * 0.8;
-  popupContainer.height = 200;
+  popupContainer.height = 300;
   popupContainer.x = (config.width - config.width * 0.8) / 2;
-  popupContainer.y = (config.height - 200) / 2;
+  popupContainer.y = (config.height - 300) / 2;
 
   // Фон попапа
   const bg = new Graphics();
   bg.beginFill(0x000000, 0.8);
-  bg.drawRoundedRect(0, 0, config.width * 0.8, 200, 15);
+  bg.drawRoundedRect(0, 0, config.width * 0.8, 300, 15);
   bg.endFill();
   popupContainer.addChild(bg);
 
   // Текст попапа
   const text = new Text("Установите игру!", {
-    fontFamily: "Arial",
-    fontSize: 20,
+    fontSize: 40,
     fill: 0xffffff,
     align: "center",
     wordWrap: true,
@@ -36,26 +35,25 @@ export function createInstallPopup() {
   // Кнопка установки
   const button = new Graphics();
   button.beginFill(0x4caf50);
-  button.drawRoundedRect(popupContainer.width / 2 - 100, 100, 200, 60, 10);
+  button.drawRoundedRect(popupContainer.width / 2 - 150, 160, 300, 100, 10);
   button.endFill();
   button.interactive = true;
   button.buttonMode = true;
 
   const buttonText = new Text("Установить", {
-    fontFamily: "Arial",
-    fontSize: 24,
+    fontSize: 48,
     fill: 0xffffff,
   });
   buttonText.anchor.set(0.5);
   buttonText.x = popupContainer.width / 2;
-  buttonText.y = popupContainer.height / 2 + 30;
+  buttonText.y = popupContainer.height / 2 + 60;
   popupContainer.addChild(button, buttonText);
 
   // Обработчик клика по кнопке
   button.on("pointerdown", () => {
     // Логика установки приложения,через MRAID если доступен, или через простое открытие нового окна
 
-    if (typeof mraid !== "undefined" && mraidState.isReady) {
+    if (typeof mraid !== "undefined" && mraidState.isReady && mraid.open) {
       mraid.open("https://play.google.com/store/apps/details?id=com.your.game");
     } else {
       window.open(
